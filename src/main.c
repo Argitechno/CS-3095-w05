@@ -1,32 +1,22 @@
-void solve_hanoi(struct Tower a, struct Tower b, struct Tower c);
+#include <stdio.h>
+#include <stdlib.h>
+
+void solve_hanoi(int num, char from, char aux, char to);
 
 int main(int argc, char** argv) {
    int discs = atoi(argv[1]);
-   struct Tower {
-      int *discs;
-      int size;
-      const char *name;
-   } A, B, C;
-
-   A.size, B.size, C.size = discs;  
-   A.discs = calloc(A.size, sizeof *A.discs);
-   B.discs = calloc(B.size, sizeof *B.discs);
-   C.discs = calloc(C.size, sizeof *C.discs);
-   
-   for (int idx = 0; idx < n; idx++) {
-      A.discs[idx] = 1;
-   }
-   
-   A.name = "A";
-   B.name = "B";
-   C.name = "C";
-   
-   solve_hanoi(A, B, C);
+   solve_hanoi(discs, 'A', 'B', 'C');
+   return 0;
 }
 
 /// Solves a tower of hanoi recursively, moving all discs from a to c.
-void solve_hanoi(struct Tower a, struct Tower b, struct Tower c) {
-   solve_hanoi(a, c, b);
-   printf("Move %s to %s", a.name, c.name);
-   solve_hanoi(b, a, c);
+void solve_hanoi(int num, char from, char aux, char to) {
+   if(num > 1) {
+      solve_hanoi(num - 1, from, to, aux);
+      printf("Move %c to %c\n", from, to);
+      solve_hanoi(num - 1, aux, from, to);
+   }
+   else {
+      printf("Move %c to %c\n", from, to);
+   }
 }
